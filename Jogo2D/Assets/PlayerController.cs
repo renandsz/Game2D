@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
 
     public int velocidade = 10;
+    private Vector2 direcao;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,11 @@ public class PlayerController : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
-
-        rb.velocity = new Vector2(x, y).normalized * velocidade;
+        direcao = new Vector2(x, y).normalized 
+       
+    }
+    void FixedUpdate()
+    {
+         rb.velocity = direcao * velocidade;
     }
 }

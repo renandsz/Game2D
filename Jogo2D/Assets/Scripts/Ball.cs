@@ -62,7 +62,7 @@ public class Ball : MonoBehaviour
         
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (!voando) return;
         
