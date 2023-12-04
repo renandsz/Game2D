@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
-        direcao = new Vector2(x, y).normalized 
+        direcao = new Vector2(x, y).normalized;
        
     }
     void FixedUpdate()

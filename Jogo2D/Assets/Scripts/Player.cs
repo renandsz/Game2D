@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
     public int velocidade = 10;
 
+    public Vector2 direcao;
    
     
     void Start()
@@ -19,10 +20,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         float x = Input.GetAxisRaw("Horizontal");
-        rb.velocity =  new Vector2(x, 0)* velocidade;
-
-        
+        direcao = new Vector2(x, 0);
     }
 
-    
+    private void FixedUpdate()
+    {
+        rb.velocity = direcao * velocidade;
+    }
 }
