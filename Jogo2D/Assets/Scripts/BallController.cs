@@ -20,7 +20,13 @@ public class BallController : MonoBehaviour
         if(collision.gameObject.CompareTag("Bloco"))
         {
             Destroy(collision.gameObject);
-        }        
+        }  
+        
+        if(collision.gameObject.CompareTag("Destruir"))
+        {
+           GameManager.instance.ReiniciarCena();
+        }  
+        
         direcao = Vector2.Reflect(direcao, collision.contacts[0].normal);        
     }
     void FixedUpdate()
