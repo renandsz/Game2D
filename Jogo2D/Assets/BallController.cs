@@ -17,11 +17,17 @@ public class BallController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Bloco"))
+        {
+            Destroy(collision.gameObject);
+        }
+        
+        
         direcao = Vector2.Reflect(direcao, collision.contacts[0].normal);        
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         rb.velocity = direcao * velocidade;
     }
