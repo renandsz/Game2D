@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bloco
+  - Destruir
   layers:
   - Default
   - TransparentFX
