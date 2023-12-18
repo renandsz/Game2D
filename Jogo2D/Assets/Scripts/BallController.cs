@@ -28,6 +28,7 @@ public class BallController : MonoBehaviour
         }  
         
         direcao = Vector2.Reflect(direcao, collision.contacts[0].normal);        
+        
     }
     void FixedUpdate()
     {
