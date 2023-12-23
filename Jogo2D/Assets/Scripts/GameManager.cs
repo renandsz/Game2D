@@ -15,9 +15,10 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefab, ballPrefab;
     public Transform playerSpawnPoint, ballSpawnPoint;
 
-    private Player _player;
-    private Ball _bolinha;
+    public Player _player;
+    public Ball _bolinha;
     public bool segurando = true;
+    private Vector3 offset;
 
     public int blocosRestantes;
     public TextMeshProUGUI contadorVidas;
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
         _player = playerObj.GetComponent<Player>();
         _bolinha = ballObj.GetComponent<Ball>();
         segurando = true;
+        offset = _player.transform.position - _bolinha.transform.position;
     }
 
     public void SubtrairBloco()
@@ -93,13 +95,14 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (segurando && Input.GetKeyDown(KeyCode.Space))
+        if (segurando)
         {
-            segurando = false;
-            float x = Random.Range(-0.2f, 0.2f);
-            float y = 1;
-            Vector2 dir = new Vector2(x,y) + _player.rb.velocity;
-            _bolinha.LancarBolinha(dir);
+            _bolinha.transform.position = _player.transform.position - offset;
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                segurando = false;
+                _bolinha.LancarBolinha(_player.rb.velocity);
+            }
         }
     }
 }

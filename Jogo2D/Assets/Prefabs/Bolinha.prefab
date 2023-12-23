@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3050742583662707306}
   - component: {fileID: 3050742583662707310}
   - component: {fileID: 2026650007930533636}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Bolinha
   m_TagString: Ball
   m_Icon: {fileID: 0}
@@ -138,8 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direcao: {x: 0, y: 0}
-  velocidade: 10
-  voando: 0
+  velocidadeBase: 10
 --- !u!96 &2026650007930533636
 TrailRenderer:
   serializedVersion: 2

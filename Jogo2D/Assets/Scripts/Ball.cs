@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,27 +7,29 @@ public class Ball : MonoBehaviour
 {
     private Rigidbody2D rb;
     public Vector2 direcao;
-    public int velocidade = 10;
+    public int velocidadeBase = 10;
+    private int velocidadeAtual;
 
-    public bool voando = false;
+   // public bool voando = false;
     void Start()
     {
         TryGetComponent(out rb);
+        velocidadeAtual = 0;
     }
 
     public void LancarBolinha(Vector2 dir)
     {
-        voando = true;
-        direcao = dir;
+        direcao = new Vector2(dir.x, 1);
+        velocidadeAtual = velocidadeBase;
+        rb.velocity = direcao.normalized * velocidadeAtual;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Rigidbody2D prb = collision.gameObject.GetComponent<Rigidbody2D>();
-            //prb.velocity = prb.velocity;
-            direcao = new Vector2((prb.velocity.x + direcao.x)/2, direcao.y);
+            direcao += GameManager.instance._player.direcaoPlayer;
+            direcao.Normalize();
         }
 
         if (collision.gameObject.CompareTag("Bloco"))
@@ -46,26 +49,20 @@ public class Ball : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (collision.contacts.Length == 1)
-        {
-            direcao = Vector2.Reflect(direcao, collision.contacts[0].normal);
-        }
-        else
-        {
-            Vector2 normalMedia = Vector2.zero;
-            foreach (var contact in collision.contacts)
-            {
-                normalMedia = (normalMedia + contact.normal) / 2;
-            }
-            direcao = Vector2.Reflect(direcao, normalMedia);
-        }
-        
+        direcao = Vector2.Reflect(direcao, collision.contacts[0].normal);
+        rb.velocity = direcao.normalized * velocidadeAtual;
     }
 
-    void Update()
+    private void Update()
     {
-        if (!voando) return;
-        
-        rb.velocity = direcao.normalized * velocidade;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direcao,10);
+       
+        Debug.DrawRay(transform.position, direcao * 10,Color.magenta);
+        Debug.DrawRay(hit.point, hit.normal * 5,Color.yellow);
+        if (hit.collider)
+        {
+            Vector2 r = Vector2.Reflect(direcao, hit.normal);
+            Debug.DrawRay(hit.point, r * 5,Color.blue);
+        }
     }
 }

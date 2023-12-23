@@ -7,22 +7,23 @@ public class Player : MonoBehaviour
 {
     public Rigidbody2D rb;
     public int velocidade = 10;
-
-   
+    public float x;
+    public Vector2 direcaoPlayer;
     
     void Start()
     {
         TryGetComponent(out rb);
-        // Physics2D.(thisCollider,ballCollider);
     }
 
     void Update()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        rb.velocity =  new Vector2(x, 0)* velocidade;
+        x = Input.GetAxisRaw("Horizontal");
+        direcaoPlayer = new Vector2(x, 0);
 
-        
     }
 
-    
+    private void FixedUpdate()
+    {
+        rb.velocity = direcaoPlayer * velocidade;
+    }
 }
