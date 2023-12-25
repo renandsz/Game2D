@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball : MonoBehaviour
+public class BallB : MonoBehaviour
 {
     private Rigidbody2D rb;
     public int velocidade = 10;
@@ -23,6 +23,25 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            direcao += GameManagerB.instance.playerAtual.direcaoPlayer;
+            direcao.Normalize();
+        }
+
+        if (col.gameObject.CompareTag("Tijolo"))
+        {
+            Destroy(col.gameObject);
+            GameManagerB.instance.SubtrairTijolo();
+        }
+        
+        if (col.gameObject.CompareTag("GameOver"))
+        {
+            GameManagerB.instance.SubtrairVida();
+        }
+        
+
+
         direcao = Vector2.Reflect(direcao, col.contacts[0].normal);
         rb.velocity = direcao.normalized * velocidade;
     }
