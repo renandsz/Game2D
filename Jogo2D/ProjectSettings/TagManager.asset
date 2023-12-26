@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bloco
   - Destruir
+  - Ref
   layers:
   - Default
   - TransparentFX
